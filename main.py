@@ -3,6 +3,7 @@ import faster_whisper as fw
 import pyttsx3
 import numpy as np
 import random as rd
+import ollama
 from datetime import datetime
 
 engine = pyttsx3.init()                                                             # Object creating for AI voice
@@ -75,6 +76,8 @@ commands = { "date": say_date, "flip a coin": flip_coin, "kill the lights": led_
 
 speak("Hello Boss")
 
+
+
 # Handles function
 
 def handles(text):
@@ -84,12 +87,20 @@ def handles(text):
             action()
             return True
     return False
-    
 
+# Think function
+
+def think(text):
+    string = input(text);
+    text = text.lower()
+    
+    ollama.chat(text)
+    
 
 while True:
     # input("Press Enter to talk: ")
     heard = listen()
+
     if not heard:
         print("Didnt catch that")
         continue

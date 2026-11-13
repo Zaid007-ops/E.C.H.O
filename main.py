@@ -6,6 +6,8 @@ import random as rd
 import ollama
 from datetime import datetime
 
+from brain import think
+
 engine = pyttsx3.init()                                                             # Object creating for AI voice
 input_Device = sd.query_devices()                                                   # Object creating for Voice input
 model = fw.WhisperModel("base.en", device = "cpu", compute_type = "int8")           # Whisper Model
@@ -88,14 +90,6 @@ def handles(text):
             return True
     return False
 
-# Think function
-
-def think(text):
-    string = input(text);
-    text = text.lower()
-    
-    ollama.chat(text)
-    
 
 while True:
     # input("Press Enter to talk: ")
@@ -109,5 +103,5 @@ while True:
         break
     matched = handles(heard)
     if not matched:
-        print("That command doesnt exist yet")
+        speak(think(heard))
 
